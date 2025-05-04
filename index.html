@@ -1,52 +1,56 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id"> <!-- Bahasa halaman ditentukan sebagai Indonesia -->
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rachel's Cat Care Clinic</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" /> <!-- Menentukan karakter encoding sebagai UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Membuat tampilan responsif di perangkat mobile -->
+    <title>Rachel's Cat Care Clinic</title> <!-- Judul halaman website -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" /> <!-- Mengimpor Bootstrap CSS -->
+    <link rel="stylesheet" href="style.css" /> <!-- Mengimpor file CSS lokal tambahan -->
   </head>
   <body>
-    <header class="banner text-center py-5">
-      <h1 class="display-4">Rachel's Cat Care Clinic</h1>
+    <!-- Header/banner utama -->
+    <header class="banner text-center py-5"> <!-- Elemen header dengan class banner dan padding -->
+      <h1 class="display-4">Rachel's Cat Care Clinic</h1> <!-- Judul utama di dalam banner -->
     </header>
 
-    <section class="intro text-center py-4 bg-light">
-      <h2> 🐾Selamat Datang di Rachel's Cat Care Clinic! 💕</h2>
+    <!-- Bagian pengenalan layanan -->
+    <section class="intro text-center py-4 bg-light"> <!-- Seksi intro dengan teks di tengah, padding, dan latar terang -->
+      <h2> 🐾Selamat Datang di Rachel's Cat Care Clinic! 💕</h2> <!-- Subjudul/ucapan selamat datang -->
       <p class="lead">
         Kami adalah klinik khusus untuk perawatan kucing yang berkomitmen memberikan layanan kesehatan terbaik bagi sahabat berbulu anda </strong>kami memahami bahwa setiap kucing adalah anggota keluarga dan
         kami berusaha memberikan perhatian penuh kepada setiap pasien kami.
       </p>
     </section>
 
-    <main class="container py-5">
-      <div class="row g-4" id="produk-salon-kucing-container">
+    <!-- Bagian utama untuk menampilkan layanan -->
+    <main class="container py-5"> <!-- Elemen utama dengan container Bootstrap dan padding -->
+      <div class="row g-4" id="produk-salon-kucing-container"> <!-- Row dengan gap antar kolom untuk menampung produk -->
         <!-- Layanan Salon Kucing akan di-generate oleh JavaScript -->
       </div>
     </main>
 
-    <!-- Modal Detail Layanan Salon Kucing -->
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="detailModalLabel">Detail Layanan</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    <!-- Modal untuk menampilkan detail layanan -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true"> <!-- Modal Bootstrap -->
+      <div class="modal-dialog modal-lg"> <!-- Ukuran modal besar -->
+        <div class="modal-content"> <!-- Konten modal -->
+          <div class="modal-header bg-primary text-white"> <!-- Header modal dengan background biru dan teks putih -->
+            <h5 class="modal-title" id="detailModalLabel">Detail Layanan</h5> <!-- Judul modal -->
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button> <!-- Tombol untuk menutup modal -->
           </div>
-          <div class="modal-body">
-            <h4 id="modal-nama-layanan"></h4>
-            <p id="modal-deskripsi"></p>
+          <div class="modal-body"> <!-- Bagian isi modal -->
+            <h4 id="modal-nama-layanan"></h4> <!-- Nama layanan yang ditampilkan -->
+            <p id="modal-deskripsi"></p> <!-- Deskripsi layanan -->
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-success">Pesan Sekarang</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <div class="modal-footer"> <!-- Bagian footer modal -->
+            <button class="btn btn-success">Pesan Sekarang</button> <!-- Tombol pesan layanan -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> <!-- Tombol untuk menutup modal -->
           </div>
         </div>
       </div>
     </div>
 
     <script>
+      // Daftar layanan salon kucing yang akan ditampilkan
       const produkSalonKucing = [
         { nama: 'Mandi Kucing', harga: 'Rp 80.000', gambar: 'images/grooming1.jpg', deskripsi: 'Layanan mandi lengkap untuk kucing, termasuk shampo dan perawatan kulit.' },
         { nama: 'Grooming Kucing', harga: 'Rp 100.000', gambar: 'images/grooming2.jpg', deskripsi: 'Pemotongan bulu, pemangkasan kuku, dan pembersihan telinga kucing.' },
@@ -55,8 +59,6 @@
         { nama: 'Pembersihan Gigi Kucing', harga: 'Rp 50.000', gambar: 'images/grooming5.jpg', deskripsi: 'Layanan pembersihan gigi kucing untuk menjaga kebersihan mulut.' },
         { nama: 'Perawatan Rambut ', harga: 'Rp 90.000', gambar: 'images/grooming6.jpg', deskripsi: 'Pemeliharaan bulu dan rambut kucing agar tetap sehat dan lebat.' },
         { nama: 'Paket Grooming Lengkap', harga: 'Rp 150.000', gambar: 'images/grooming7.jpg', deskripsi: 'Pemeliharaan kuku kucing agar tetap rapi dan tidak sakit.' },
-
-        // Layanan tambahan
         { nama: 'Pemotongan Bulu Kucing', harga: 'Rp 70.000', gambar: 'images/grooming9.jpg', deskripsi: 'Pemotongan bulu kucing agar rapi dan bebas kusut.' },
         {
           nama: 'Sterilisasi (spay/neuter)',
@@ -69,34 +71,37 @@
         { nama: 'Rawat Inap', harga: 'Rp 100.000', gambar: 'images/grooming14.jpg', deskripsi: 'Perawatan intensif bagi kucing yang membutuhkan pemantauan medis lebih lanjut..' },
       ];
 
+      // Fungsi untuk membuat tampilan produk secara dinamis
       const generateProduk = (produkArray, containerId) => {
-        const container = document.getElementById(containerId);
-        produkArray.forEach((produk) => {
-          const card = document.createElement('div');
-          card.className = 'col-md-3';
+        const container = document.getElementById(containerId); // Ambil elemen HTML berdasarkan ID
+        produkArray.forEach((produk) => { // Iterasi setiap produk dalam array
+          const card = document.createElement('div'); // Buat elemen div baru
+          card.className = 'col-md-3'; // Tambahkan class kolom Bootstrap
           card.innerHTML = `
             <div class="card">
-              <img src="${produk.gambar}" class="card-img-top" alt="${produk.nama}">
+              <img src="${produk.gambar}" class="card-img-top" alt="${produk.nama}"> <!-- Gambar layanan -->
               <div class="card-body">
-                <h5 class="card-title">${produk.nama}</h5>
-                <p class="card-text">${produk.harga}</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" onclick="tampilkanDetailProduk('${produk.nama}', '${produk.deskripsi}')">Detail</button>
+                <h5 class="card-title">${produk.nama}</h5> <!-- Nama layanan -->
+                <p class="card-text">${produk.harga}</p> <!-- Harga layanan -->
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" onclick="tampilkanDetailProduk('${produk.nama}', '${produk.deskripsi}')">Detail</button> <!-- Tombol detail -->
               </div>
             </div>
           `;
-          container.appendChild(card);
+          container.appendChild(card); // Masukkan card ke dalam container
         });
       };
 
+      // Fungsi untuk menampilkan detail layanan dalam modal
       const tampilkanDetailProduk = (nama, deskripsi) => {
-        document.getElementById('modal-nama-layanan').innerText = nama;
-        document.getElementById('modal-deskripsi').innerText = deskripsi;
+        document.getElementById('modal-nama-layanan').innerText = nama; // Tampilkan nama di modal
+        document.getElementById('modal-deskripsi').innerText = deskripsi; // Tampilkan deskripsi di modal
       };
 
-      // Generate Layanan Salon Kucing
+      // Menjalankan fungsi untuk menampilkan semua layanan saat halaman dimuat
       generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
     </script>
 
+    <!-- Bootstrap JS agar modal dan komponen lain berfungsi -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

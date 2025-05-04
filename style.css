@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fce3ec, #ffe8d6);
+}
+
+/* Banner */
+.banner {
+  width: 100vw; /* Lebar penuh layar */
+  height: 300px;
+  background: url('https://images.unsplash.com/photo-1583337130417-3346a1d3a5c2') no-repeat center center;
+  background-size: cover;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 2px 2px 8px rgba(255, 105, 135, 0.8); /* bayangan pink aesthetic */
+  overflow: hidden;
+  border-bottom: 6px solid #ffb6c1;
+}
+
+/* Judul dalam banner */
+.banner h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  background-color: rgba(255, 182, 193, 0.4); /* pink soft background */
+  padding: 10px 25px;
+  border-radius: 12px;
+  color: #fff0f5;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+/* Tombol Detail */
+.btn.btn-primary {
+  background-color: #ff85a2;
+  border-color: #ff85a2;
+}
+
+.btn.btn-primary:hover {
+  background-color: #ff6f91;
+  border-color: #ff6f91;
+}
+
+/* Tombol Pesan Sekarang */
+.btn.btn-success {
+  background-color: #ffb6c1;
+  border-color: #ffb6c1;
+  color: white;
+}
+
+.btn.btn-success:hover {
+  background-color: #ff8fab;
+  border-color: #ff8fab;
+}

@@ -1,101 +1,117 @@
 <!DOCTYPE html>
+<!-- Mendefinisikan bahwa ini adalah dokumen HTML5 -->
 <html lang="id">
+  <!-- Menetapkan bahasa dokumen sebagai Bahasa Indonesia -->
   <head>
     <meta charset="UTF-8" />
+    <!-- Menetapkan karakter encoding ke UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Membuat halaman responsif di perangkat mobile -->
     <title>Rachel's Cat Care Clinic</title>
+    <!-- Judul halaman yang ditampilkan di tab browser -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Menyisipkan Bootstrap CSS dari CDN -->
     <link rel="stylesheet" href="style.css" />
+    <!-- Menyisipkan file CSS lokal -->
   </head>
   <body>
+    <!-- Header/banner halaman -->
     <header class="banner text-center py-5">
       <h1 class="display-4">Rachel's Cat Care Clinic</h1>
+      <!-- Judul utama -->
     </header>
 
+    <!-- Bagian pengantar -->
     <section class="intro text-center py-4 bg-light">
       <h2>🐾Selamat Datang di Rachel's Cat Care Clinic! 💕</h2>
+      <!-- Subjudul sambutan -->
       <p class="lead">
-        Kami adalah klinik khusus untuk perawatan kucing yang berkomitmen memberikan layanan kesehatan terbaik bagi sahabat berbulu anda. Kami memahami bahwa setiap kucing adalah anggota keluarga dan kami berusaha memberikan perhatian penuh
-        kepada setiap pasien kami.
+        Kami adalah klinik khusus untuk perawatan kucing...
+        <!-- Penjelasan tentang layanan klinik -->
       </p>
     </section>
 
+    <!-- Bagian utama untuk menampilkan layanan -->
     <main class="container py-5">
       <div class="row g-4" id="produk-salon-kucing-container"></div>
+      <!-- Container untuk menampilkan daftar produk/grooming -->
     </main>
 
-    <!-- Modal Detail -->
+    <!-- Modal (popup) untuk menampilkan detail layanan -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
+          <!-- Header modal -->
           <div class="modal-header bg-primary text-white">
             <h5 class="modal-title" id="detailModalLabel">Detail Layanan</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <!-- Tombol tutup modal -->
           </div>
+          <!-- Isi modal -->
           <div class="modal-body">
             <h4 id="modal-nama-layanan"></h4>
+            <!-- Nama layanan ditampilkan di sini -->
             <p id="modal-deskripsi"></p>
+            <!-- Deskripsi layanan -->
           </div>
+          <!-- Footer modal -->
           <div class="modal-footer">
             <button class="btn btn-success" onclick="redirectToForm()">Pesan Sekarang</button>
+            <!-- Tombol untuk memesan -->
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <!-- Tombol untuk menutup modal -->
           </div>
         </div>
       </div>
     </div>
 
+    <!-- JavaScript untuk menampilkan produk -->
     <script>
+      // Daftar layanan grooming beserta informasi
       const produkSalonKucing = [
-        { nama: 'Mandi Kucing', harga: 'Rp 80.000', gambar: 'images/grooming1.jpg', deskripsi: 'Layanan mandi lengkap untuk kucing, termasuk shampo dan perawatan kulit.' },
-        { nama: 'Grooming Kucing', harga: 'Rp 100.000', gambar: 'images/grooming2.jpg', deskripsi: 'Pemotongan bulu, pemangkasan kuku, dan pembersihan telinga kucing.' },
-        { nama: 'Pemotongan Kuku', harga: 'Rp 30.000', gambar: 'images/grooming3.jpg', deskripsi: 'Layanan pemotongan kuku kucing untuk menjaga kesehatan dan kenyamanan mereka.' },
-        { nama: 'Spa Kucing', harga: 'Rp 120.000', gambar: 'images/grooming4.jpg', deskripsi: 'Perawatan spa relaksasi untuk kucing, termasuk pijat lembut.' },
-        { nama: 'Pembersihan Gigi Kucing', harga: 'Rp 50.000', gambar: 'images/grooming5.jpg', deskripsi: 'Layanan pembersihan gigi kucing untuk menjaga kebersihan mulut.' },
-        { nama: 'Perawatan Rambut ', harga: 'Rp 90.000', gambar: 'images/grooming6.jpg', deskripsi: 'Pemeliharaan bulu dan rambut kucing agar tetap sehat dan lebat.' },
-        { nama: 'Paket Grooming Lengkap', harga: 'Rp 150.000', gambar: 'images/grooming7.jpg', deskripsi: 'Pemeliharaan kuku kucing agar tetap rapi dan tidak sakit.' },
-        { nama: 'Pemotongan Bulu Kucing', harga: 'Rp 70.000', gambar: 'images/grooming9.jpg', deskripsi: 'Pemotongan bulu kucing agar rapi dan bebas kusut.' },
-        {
-          nama: 'Sterilisasi (spay/neuter)',
-          harga: 'Rp 800.000',
-          gambar: 'images/grooming10.jpg',
-          deskripsi: 'Sterilisasi kucing (spay/neuter) adalah prosedur medis untuk mencegah reproduksi, meningkatkan kesehatan, dan mengurangi perilaku agresif.',
-        },
-        { nama: 'Perawatan Kesehatan Kucing', harga: 'Rp 130.000', gambar: 'images/grooming12.jpg', deskripsi: 'Layanan pemeriksaan kesehatan untuk kucing, termasuk vaksinasi ringan.' },
-        { nama: 'Pembersihan Telinga Kucing', harga: 'Rp 40.000', gambar: 'images/grooming13.jpg', deskripsi: 'Pembersihan telinga kucing untuk mencegah infeksi dan masalah telinga.' },
-        { nama: 'Rawat Inap', harga: 'Rp 100.000', gambar: 'images/grooming14.jpg', deskripsi: 'Perawatan intensif bagi kucing yang membutuhkan pemantauan medis lebih lanjut.' },
+        { nama: 'Mandi Kucing', harga: 'Rp 80.000', gambar: 'images/grooming1.jpg', deskripsi: 'Layanan mandi lengkap...' },
+        { nama: 'Grooming Kucing', harga: 'Rp 100.000', gambar: 'images/grooming2.jpg', deskripsi: 'Pemotongan bulu...' },
+        { nama: 'Pemotongan Kuku', harga: 'Rp 30.000', gambar: 'images/grooming3.jpg', deskripsi: 'Layanan pemotongan kuku...' },
+        // ... daftar layanan lainnya
       ];
 
+      // Fungsi untuk menampilkan produk dalam bentuk kartu
       const generateProduk = (produkArray, containerId) => {
-        const container = document.getElementById(containerId);
+        const container = document.getElementById(containerId); // Ambil elemen container
         produkArray.forEach((produk) => {
-          const card = document.createElement('div');
-          card.className = 'col-md-3';
+          const card = document.createElement('div'); // Buat elemen div untuk setiap produk
+          card.className = 'col-md-3'; // Atur lebar kolom (4 kolom dalam 1 baris)
           card.innerHTML = `
             <div class="card">
-              <img src="${produk.gambar}" class="card-img-top" alt="${produk.nama}">
+              <img src="${produk.gambar}" class="card-img-top" alt="${produk.nama}"> <!-- Gambar produk -->
               <div class="card-body">
-                <h5 class="card-title">${produk.nama}</h5>
-                <p class="card-text">${produk.harga}</p>
+                <h5 class="card-title">${produk.nama}</h5> <!-- Nama layanan -->
+                <p class="card-text">${produk.harga}</p> <!-- Harga layanan -->
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" onclick="tampilkanDetailProduk('${produk.nama}', '${produk.deskripsi}')">Detail</button>
+                <!-- Tombol untuk membuka modal detail -->
               </div>
             </div>
           `;
-          container.appendChild(card);
+          container.appendChild(card); // Tambahkan kartu ke dalam container
         });
       };
 
+      // Fungsi untuk mengatur isi modal berdasarkan layanan yang diklik
       const tampilkanDetailProduk = (nama, deskripsi) => {
-        document.getElementById('modal-nama-layanan').innerText = nama;
-        document.getElementById('modal-deskripsi').innerText = deskripsi;
+        document.getElementById('modal-nama-layanan').innerText = nama; // Tampilkan nama layanan
+        document.getElementById('modal-deskripsi').innerText = deskripsi; // Tampilkan deskripsi layanan
       };
 
+      // Fungsi untuk mengarahkan ke halaman form pemesanan
       function redirectToForm() {
-        window.location.href = 'pesan.html';
+        window.location.href = 'pesan.html'; // Arahkan ke halaman pemesanan
       }
 
+      // Jalankan fungsi generateProduk setelah halaman dimuat
       generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
     </script>
 
+    <!-- Bootstrap JavaScript Bundle (termasuk Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

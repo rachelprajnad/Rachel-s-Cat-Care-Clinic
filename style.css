@@ -90,3 +90,43 @@ body {
   background-color: #ffa6b9 !important; /* Warna pink sedikit lebih gelap saat hover */
   border-color: #ffa6b9 !important;
 }
+
+/* ========================= */
+/*     MEDIA QUERIES        */
+/* ========================= */
+
+/* Perangkat kecil (max-width: 768px) */
+@media (max-width: 768px) {
+  .banner {
+    height: 200px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner h1 {
+    font-size: 1.8rem;
+    padding: 8px 15px;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+}
+
+/* Perangkat sedang (min-width: 769px and max-width: 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .banner {
+    height: 250px;
+  }
+
+  .banner h1 {
+    font-size: 2.5rem;
+    padding: 10px 20px;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

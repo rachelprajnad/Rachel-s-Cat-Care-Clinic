@@ -7,9 +7,12 @@
     <!-- Membuat tampilan responsif untuk perangkat mobile -->
     <title>Rachel's Cat Care Clinic</title>
     <!-- Menetapkan judul halaman yang muncul di tab browser -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+
     <!-- Menyertakan CSS Bootstrap untuk tata letak dan styling -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- Menyertakan CSS kustom untuk halaman -->
   </head>
   <body>
@@ -114,9 +117,19 @@
       }
 
       generateProduk(produkSalonKucing, 'produk-salon-kucing-container'); // Memanggil fungsi untuk menampilkan produk salon kucing
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker terdaftar dengan sukses:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Pendaftaran Service Worker gagal:', error);
+          });
+      }
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<scrip src="js/bootstrap.bundle.js"> </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
     <!-- Menyertakan file JS Bootstrap untuk interaksi UI -->
   </body>
 </html>

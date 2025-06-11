@@ -48,6 +48,7 @@
         text-align: center; /* Rata tengah */
       }
     </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
   </head>
 
   <body class="py-5">
@@ -111,6 +112,18 @@
         form.style.display = 'none'; // Sembunyikan form setelah submit
         pesanSukses.style.display = 'block'; // Tampilkan pesan sukses
       });
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker terdaftar dengan sukses:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Pendaftaran Service Worker gagal:', error);
+          });
+      }
     </script>
+    <scrip src="js/bootstrap.bundle.js"> </script>
+
   </body>
 </html>

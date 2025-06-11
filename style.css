@@ -10,7 +10,6 @@ body {
 .banner {
   width: 100vw; /* Membuat banner selebar viewport (layar penuh) */
   height: 300px; /* Menetapkan tinggi banner 300px */
-  background: url('https://images.unsplash.com/photo-1583337130417-3346a1d3a5c2') no-repeat center center; /* Menampilkan gambar sebagai background banner */
   background-size: cover; /* Menyesuaikan gambar agar menutupi seluruh area */
   color: white; /* Warna teks putih */
   display: flex; /* Menggunakan Flexbox untuk posisi isi banner */

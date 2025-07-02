@@ -2,132 +2,415 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <!-- Mendefinisikan karakter encoding untuk dokumen -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Membuat tampilan responsif untuk perangkat mobile -->
     <title>Rachel's Cat Care Clinic</title>
-    <!-- Menetapkan judul halaman yang muncul di tab browser -->
-
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
-
-    <!-- Menyertakan CSS Bootstrap untuk tata letak dan styling -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <!-- Menyertakan CSS kustom untuk halaman -->
+    <style>
+      /* Gaya body */
+      body {
+        background: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Header dengan efek background */
+      header.banner {
+        background: linear-gradient(135deg, #ffb3b3, #ffe6e6);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+      header.banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+        animation: rotateBg 10s linear infinite;
+      }
+      @keyframes rotateBg {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      header.banner h1 {
+        font-weight: 700;
+        font-size: 2.75rem;
+        letter-spacing: 1px;
+        background: linear-gradient(90deg, #ff7f7f, #ffbaba);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+      }
+
+      .badge-custom {
+        position: absolute;
+        top: 0.75rem;
+        left: 0.75rem;
+        background: #ff7f7f;
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.3em 0.6em;
+        border-radius: 0.4rem;
+        z-index: 1;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      .badge-new {
+        background: #4caf50;
+      }
+
+      .card {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+      .card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .card-img-top {
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+      }
+      .card-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #333;
+      }
+      .btn-primary {
+        background: #ff7f7f;
+        border: none;
+      }
+      .btn-primary:hover {
+        background: #ff4d4d;
+      }
+      .btn-success {
+        background: #4caf50;
+        border: none;
+      }
+      .btn-success:hover {
+        background: #45a049;
+      }
+      .modal-header {
+        background: #ff7f7f;
+      }
+      .modal-title {
+        color: #fff;
+      }
+      .filter-container {
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .star {
+        color: #f4c150;
+        font-size: 1rem;
+      }
+      .price-old {
+        color: #888;
+        text-decoration: line-through;
+        margin-right: 0.3rem;
+      }
+      .price-new {
+        font-weight: 600;
+        color: #333;
+      }
+
+      /* Tombol WhatsApp Chat */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25d366;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        transition: background 0.3s;
+      }
+      .whatsapp-float:hover {
+        background-color: #128c7e;
+      }
+    </style>
   </head>
   <body>
+    <!-- Header -->
     <header class="banner text-center py-5">
-      <!-- Bagian header dengan banner dan teks terpusat -->
       <h1 class="display-4">Rachel's Cat Care Clinic</h1>
-      <!-- Judul besar halaman -->
     </header>
 
-    <section class="intro text-center py-4 bg-light">
-      <!-- Bagian intro dengan latar belakang terang -->
-      <h2>🐾Selamat Datang di Rachel's Cat Care Clinic! 💕</h2>
-      <!-- Judul sambutan -->
-      <p class="lead">Setiap kucing adalah anggota keluarga dan kami berusaha memberikan perhatian penuh kepada setiap pasien kami.</p>
-      <!-- Deskripsi singkat tentang layanan klinik -->
-    </section>
-
     <main class="container py-5">
-      <!-- Bagian utama halaman dengan kontainer -->
+      <!-- Dropdown Filter -->
+      <div class="filter-container">
+        <select id="kategoriFilter" class="form-select w-50 mx-auto">
+          <option value="semua">🌟 Semua Kategori</option>
+          <option value="perawatan">Perawatan Dasar</option>
+          <option value="grooming">Grooming</option>
+          <option value="kesehatan">Kesehatan</option>
+        </select>
+      </div>
+
+      <!-- Container untuk produk -->
       <div class="row g-4" id="produk-salon-kucing-container"></div>
-      <!-- Tempat untuk menampilkan produk perawatan salon kucing -->
+
+      <!-- Container untuk gambar kucing dari API -->
+      <div id="cat-api-images" class="d-flex justify-content-center flex-wrap my-4"></div>
     </main>
 
     <!-- Modal Detail -->
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-      <!-- Modal yang muncul saat tombol Detail diklik -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
-        <!-- Dialog modal dengan ukuran besar -->
         <div class="modal-content">
-          <!-- Konten modal -->
-          <div class="modal-header bg-primary text-white">
-            <!-- Header modal dengan latar belakang biru dan teks putih -->
-            <h5 class="modal-title" id="detailModalLabel">Detail Layanan</h5>
-            <!-- Judul modal -->
+          <div class="modal-header">
+            <h5 class="modal-title">Detail Layanan</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            <!-- Tombol untuk menutup modal -->
           </div>
           <div class="modal-body">
-            <h4 id="modal-nama-layanan"></h4>
-            <!-- Menampilkan nama layanan di dalam modal -->
-            <p id="modal-deskripsi"></p>
-            <!-- Menampilkan deskripsi layanan di dalam modal -->
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-success" onclick="redirectToForm()">Pesan Sekarang</button>
-            <!-- Tombol untuk mengarahkan pengguna ke halaman pemesanan -->
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-            <!-- Tombol untuk menutup modal -->
+            <h4 id="modal-nama-layanan" class="mb-3"></h4>
+            <div id="modal-rating" class="mb-2 text-warning"></div>
+            <p id="modal-deskripsi" class="mb-3"></p>
+            <p><strong>Harga:</strong> <span id="modal-harga"></span></p>
+            <p><strong>Dokter:</strong> <span id="modal-dokter"></span></p>
+            <p><strong>Jadwal:</strong> <span id="modal-jadwal"></span></p>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Script -->
     <script>
+      // Data Produk
       const produkSalonKucing = [
-        { nama: 'Mandi Kucing', harga: 'Rp 80.000', gambar: 'images/grooming1.jpg', deskripsi: 'Layanan mandi lengkap untuk kucing, termasuk shampo dan perawatan kulit.' },
-        { nama: 'Grooming Kucing', harga: 'Rp 100.000', gambar: 'images/grooming2.jpg', deskripsi: 'Pemotongan bulu, pemangkasan kuku, dan pembersihan telinga kucing.' },
-        { nama: 'Pemotongan Kuku', harga: 'Rp 30.000', gambar: 'images/grooming3.jpg', deskripsi: 'Layanan pemotongan kuku kucing untuk menjaga kesehatan dan kenyamanan mereka.' },
-        { nama: 'Spa Kucing', harga: 'Rp 120.000', gambar: 'images/grooming4.jpg', deskripsi: 'Perawatan spa relaksasi untuk kucing, termasuk pijat lembut.' },
-        { nama: 'Pembersihan Gigi Kucing', harga: 'Rp 50.000', gambar: 'images/grooming5.jpg', deskripsi: 'Layanan pembersihan gigi kucing untuk menjaga kebersihan mulut.' },
-        { nama: 'Perawatan Rambut ', harga: 'Rp 90.000', gambar: 'images/grooming6.jpg', deskripsi: 'Pemeliharaan bulu dan rambut kucing agar tetap sehat dan lebat.' },
-        { nama: 'Paket Grooming Lengkap', harga: 'Rp 150.000', gambar: 'images/grooming7.jpg', deskripsi: 'Paket grooming lengkap untuk kucing, termasuk mandi, potong bulu, dan potong kuku.' },
-        { nama: 'Pemotongan Bulu Kucing', harga: 'Rp 70.000', gambar: 'images/grooming9.jpg', deskripsi: 'Pemotongan bulu kucing agar rapi dan bebas kusut.' },
+        {
+          nama: 'Mandi Kucing',
+          harga: 'Rp 80.000',
+          hargaAsli: 'Rp 100.000',
+          gambar: 'images/grooming1.jpg',
+          deskripsi: 'Layanan mandi lengkap untuk kucing, termasuk shampo dan perawatan kulit.',
+          kategori: 'perawatan',
+          rating: 4.5,
+          jadwal: 'Senin–Sabtu 09:00–17:00',
+          dokter: 'drh. Wulan',
+        },
+        {
+          nama: 'Grooming Kucing',
+          harga: 'Rp 100.000',
+          gambar: 'images/grooming2.jpg',
+          deskripsi: 'Pemotongan bulu, pemangkasan kuku, dan pembersihan telinga kucing.',
+          kategori: 'grooming',
+          rating: 4.4,
+          jadwal: 'Senin–Minggu 10:00–18:00',
+          dokter: 'drh. Andi',
+        },
+        {
+          nama: 'Pemotongan Kuku',
+          harga: 'Rp 30.000',
+          gambar: 'images/grooming3.jpg',
+          deskripsi: 'Pemotongan kuku kucing untuk menjaga kesehatan.',
+          kategori: 'perawatan',
+          rating: 4.2,
+          jadwal: 'Selasa–Sabtu 09:00–16:00',
+          dokter: 'drh. Fitri',
+        },
+        {
+          nama: 'Spa Kucing',
+          harga: 'Rp 120.000',
+          hargaAsli: 'Rp 150.000',
+          gambar: 'images/grooming4.jpg',
+          deskripsi: 'Perawatan spa relaksasi untuk kucing, termasuk pijat lembut.',
+          kategori: 'grooming',
+          rating: 4.7,
+          jadwal: 'Senin–Minggu 09:00–19:00',
+          dokter: 'drh. Budi',
+        },
+        {
+          nama: 'Pembersihan Gigi Kucing',
+          harga: 'Rp 50.000',
+          hargaAsli: 'Rp 70.000',
+          gambar: 'images/grooming5.jpg',
+          deskripsi: 'Pembersihan gigi kucing untuk menjaga kebersihan mulut.',
+          kategori: 'kesehatan',
+          rating: 4.3,
+          jadwal: 'Selasa–Minggu 11:00–15:00',
+          dokter: 'drh. Sari',
+        },
+        {
+          nama: 'Perawatan Rambut',
+          harga: 'Rp 90.000',
+          gambar: 'images/grooming6.jpg',
+          deskripsi: 'Pemeliharaan bulu dan rambut kucing agar tetap sehat.',
+          kategori: 'grooming',
+          rating: 4.4,
+          jadwal: 'Senin–Sabtu 09:00–17:00',
+          dokter: 'drh. Maya',
+        },
+        {
+          nama: 'Grooming Lengkap',
+          harga: 'Rp 150.000',
+          hargaAsli: 'Rp 180.000',
+          gambar: 'images/grooming7.jpg',
+          deskripsi: 'Paket grooming lengkap: mandi, potong bulu, potong kuku.',
+          kategori: 'grooming',
+          badge: 'Best Seller',
+          rating: 4.9,
+          jadwal: 'Setiap Hari 08:00–20:00',
+          dokter: 'drh. Aditya',
+        },
+        {
+          nama: 'Pemotongan Bulu Kucing',
+          harga: 'Rp 70.000',
+          gambar: 'images/grooming9.jpg',
+          deskripsi: 'Pemotongan bulu kucing agar rapi.',
+          kategori: 'grooming',
+          rating: 4.3,
+          jadwal: 'Rabu–Minggu 10:00–17:00',
+          dokter: 'drh. Lina',
+        },
         {
           nama: 'Sterilisasi (spay/neuter)',
           harga: 'Rp 800.000',
           gambar: 'images/grooming10.jpg',
-          deskripsi: 'Sterilisasi kucing (spay/neuter) adalah prosedur medis untuk mencegah reproduksi, meningkatkan kesehatan, dan mengurangi perilaku agresif.',
+          deskripsi: 'Sterilisasi kucing untuk kesehatan jangka panjang.',
+          kategori: 'kesehatan',
+          badge: 'Baru',
+          rating: 4.8,
+          jadwal: 'Senin–Jumat 10:00–16:00',
+          dokter: 'drh. Taufik',
         },
-        { nama: 'Perawatan Kesehatan Kucing', harga: 'Rp 130.000', gambar: 'images/grooming12.jpg', deskripsi: 'Layanan pemeriksaan kesehatan untuk kucing, termasuk vaksinasi ringan.' },
-        { nama: 'Pembersihan Telinga Kucing', harga: 'Rp 40.000', gambar: 'images/grooming13.jpg', deskripsi: 'Pembersihan telinga kucing untuk mencegah infeksi dan masalah telinga.' },
-        { nama: 'Rawat Inap', harga: 'Rp 100.000', gambar: 'images/grooming14.jpg', deskripsi: 'Perawatan intensif bagi kucing yang membutuhkan pemantauan medis lebih lanjut.' },
+        {
+          nama: 'Perawatan Kesehatan',
+          harga: 'Rp 130.000',
+          gambar: 'images/grooming12.jpg',
+          deskripsi: 'Pemeriksaan kesehatan & vaksinasi ringan.',
+          kategori: 'kesehatan',
+          rating: 4.5,
+          jadwal: 'Senin–Sabtu 09:00–17:00',
+          dokter: 'drh. Eka',
+        },
+        {
+          nama: 'Pembersihan Telinga',
+          harga: 'Rp 40.000',
+          gambar: 'images/grooming13.jpg',
+          deskripsi: 'Pembersihan telinga untuk mencegah infeksi.',
+          kategori: 'kesehatan',
+          rating: 4.2,
+          jadwal: 'Selasa–Sabtu 10:00–14:00',
+          dokter: 'drh. Dini',
+        },
+        {
+          nama: 'Rawat Inap',
+          harga: 'Rp 100.000',
+          gambar: 'images/grooming14.jpg',
+          deskripsi: 'Rawat inap dengan pemantauan 24 jam.',
+          kategori: 'kesehatan',
+          rating: 4.6,
+          jadwal: '24 Jam',
+          dokter: 'drh. Maya',
+        },
       ];
 
-      const generateProduk = (produkArray, containerId) => {
-        const container = document.getElementById(containerId); // Mengambil elemen kontainer untuk produk
-        produkArray.forEach((produk) => {
-          // Loop melalui setiap produk
-          const card = document.createElement('div'); // Membuat elemen div baru untuk kartu produk
-          card.className = 'col-md-3'; // Menetapkan kelas untuk kartu agar tampil dalam 4 kolom pada layar besar
+      // Fungsi Generate Produk
+      const generateProduk = (array, containerId) => {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        array.forEach((p, index) => {
+          const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : '');
+          const card = document.createElement('div');
+          card.className = 'col-md-3 position-relative';
+          card.style.transitionDelay = index * 100 + 'ms';
+
           card.innerHTML = `
-            <div class="card">
-              <img src="${produk.gambar}" class="card-img-top" alt="${produk.nama}"> <!-- Gambar produk -->
-              <div class="card-body">
-                <h5 class="card-title">${produk.nama}</h5> <!-- Nama produk -->
-                <p class="card-text">${produk.harga}</p> <!-- Harga produk -->
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" onclick="tampilkanDetailProduk('${produk.nama}', '${produk.deskripsi}')">Detail</button> <!-- Tombol untuk menampilkan detail -->
-              </div>
-            </div>
-          `;
-          container.appendChild(card); // Menambahkan kartu produk ke dalam kontainer
+      ${p.badge ? `<div class="badge-custom ${p.badge === 'Baru' ? 'badge-new' : ''}">${p.badge}</div>` : ''}
+      <div class="card">
+        <img src="${p.gambar}" class="card-img-top" alt="${p.nama}">
+        <div class="card-body">
+          <h5 class="card-title">${p.nama}</h5>
+          <div class="star">${stars}</div>
+          <p class="card-text">
+            ${p.hargaAsli ? `<span class="price-old">${p.hargaAsli}</span>` : ''}
+            <span class="price-new">${p.harga}</span>
+          </p>
+          <p><small><strong>Jadwal:</strong> ${p.jadwal}</small></p>
+          <p><small><strong>Dokter:</strong> ${p.dokter}</small></p>
+          <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#detailModal"
+            onclick="tampilkanDetailProduk(
+              '${p.nama.replace(/'/g, "\\'")}',
+              '${p.deskripsi.replace(/'/g, "\\'")}',
+              '${p.dokter.replace(/'/g, "\\'")}',
+              '${p.harga}',
+              '${p.hargaAsli || ''}',
+              ${p.rating},
+              '${p.jadwal.replace(/'/g, "\\'")}'
+            )">
+            Detail
+          </button>
+          <button class="btn btn-success" onclick="redirectToForm()">Pesan Sekarang</button>
+        </div>
+      </div>`;
+
+          container.appendChild(card);
+          setTimeout(() => card.querySelector('.card').classList.add('visible'), 50);
         });
       };
 
-      const tampilkanDetailProduk = (nama, deskripsi) => {
-        document.getElementById('modal-nama-layanan').innerText = nama; // Menampilkan nama layanan di modal
-        document.getElementById('modal-deskripsi').innerText = deskripsi; // Menampilkan deskripsi layanan di modal
+      const tampilkanDetailProduk = (nama, deskripsi, dokter, harga, hargaAsli, rating, jadwal) => {
+        document.getElementById('modal-nama-layanan').innerText = nama;
+        document.getElementById('modal-deskripsi').innerText = deskripsi;
+        document.getElementById('modal-dokter').innerText = dokter;
+        document.getElementById('modal-jadwal').innerText = jadwal;
+        document.getElementById('modal-harga').innerHTML = hargaAsli
+          ? `<span class="text-muted text-decoration-line-through me-2">${hargaAsli}</span><span class="text-success fw-bold">${harga}</span>`
+          : `<span class="text-success fw-bold">${harga}</span>`;
+
+        const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : '');
+        document.getElementById('modal-rating').innerHTML = stars;
       };
 
+      // Redirect ke halaman pemesanan
       function redirectToForm() {
-        window.location.href = 'pesan.html'; // Mengarahkan pengguna ke halaman pemesanan
+        window.location.href = 'pesan.html';
       }
 
-      generateProduk(produkSalonKucing, 'produk-salon-kucing-container'); // Memanggil fungsi untuk menampilkan produk salon kucing
+      // Inisialisasi awal
+      generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
+
+      // Event Listener untuk filter kategori
+      document.getElementById('kategoriFilter').addEventListener('change', (e) => {
+        const kategori = e.target.value;
+        if (kategori === 'semua') {
+          generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
+        } else {
+          const filtered = produkSalonKucing.filter((p) => p.kategori === kategori);
+          generateProduk(filtered, 'produk-salon-kucing-container');
+        }
+      });
+
+      // Service Worker (opsional)
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker
           .register('sw.js')
-          .then((registration) => {
-            console.log('Service Worker terdaftar dengan sukses:', registration.scope);
-          })
-          .catch((error) => {
-            console.log('Pendaftaran Service Worker gagal:', error);
-          });
+          .then((reg) => console.log('Service Worker terdaftar:', reg.scope))
+          .catch((err) => console.log('Service Worker gagal:', err));
       }
     </script>
     <script src="js/bootstrap.bundle.js"></script>
+
+    <!-- Tombol WhatsApp Chat -->
+    <a href="https://wa.me/6281234567890" target="_blank" class="whatsapp-float" title="Chat via WhatsApp"> 💬 Butuh bantuan? Chat kami </a>
   </body>
 </html>

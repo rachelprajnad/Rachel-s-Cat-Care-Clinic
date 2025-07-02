@@ -1,84 +1,110 @@
 <!DOCTYPE html>
-<!-- Menentukan tipe dokumen HTML -->
 <html lang="id">
-  <!-- Awal dokumen HTML dengan bahasa Indonesia -->
   <head>
     <meta charset="UTF-8" />
-    <!-- Menentukan karakter encoding UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Membuat halaman responsif -->
     <title>Form Pemesanan Kucing</title>
-    <!-- Judul halaman di tab browser -->
 
-    <!-- Memanggil stylesheet Bootstrap dari CDN untuk styling cepat -->
+    <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Style kustom untuk tampilan warna pink -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
+
     <style>
       body {
-        background-color: #fff0f5; /* Warna latar belakang pink muda */
+        background: linear-gradient(135deg, #ffd6d6, #ffeaea);
+        font-family: 'Quicksand', sans-serif;
       }
 
       .form-container {
-        background-color: #ffe4ec; /* Warna latar belakang kotak form */
-        padding: 2rem; /* Padding di dalam form */
-        border-radius: 1rem; /* Membulatkan sudut form */
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Bayangan halus */
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.8s ease;
       }
 
       h2 {
-        color: #d63384; /* Warna pink untuk judul */
+        color: #ff7f7f;
+        background: linear-gradient(90deg, #ff7f7f, #ffbaba);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
       }
 
       .btn-success {
-        background-color: #d63384; /* Warna tombol */
-        border-color: #d63384; /* Warna border tombol */
+        background: #ff7f7f;
+        border: none;
+        font-weight: 600;
+        font-size: 1.1rem;
       }
 
       .btn-success:hover {
-        background-color: #c2186a; /* Warna tombol saat hover */
-        border-color: #c2186a; /* Border tombol saat hover */
+        background: #ff4d4d;
       }
 
       #pesan-sukses {
-        display: none; /* Pesan tidak ditampilkan awalnya */
-        margin-top: 20px; /* Jarak atas dari form */
-        color: green; /* Warna teks hijau */
-        font-weight: bold; /* Teks tebal */
-        text-align: center; /* Rata tengah */
+        display: none;
+        margin-top: 20px;
+        color: #28a745;
+        font-weight: bold;
+        text-align: center;
+        animation: fadeIn 0.8s ease;
+      }
+
+      .header-icon {
+        font-size: 3rem;
+        color: #ff7f7f;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Tambahan gaya untuk footer */
+      footer {
+        background: #ff7f7f;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
       }
     </style>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
   </head>
 
   <body class="py-5">
-    <!-- Body dengan padding atas & bawah -->
     <div class="container">
-      <!-- Container Bootstrap -->
       <div class="form-container mx-auto" style="max-width: 600px">
-        <!-- Kontainer form berukuran 600px -->
-        <h2 class="mb-4 text-center">Form Pemesanan Layanan Kucing</h2>
-        <!-- Judul form -->
+        <div class="text-center mb-4">
+          <div class="header-icon">🐱</div>
+          <h2>Form Pemesanan Layanan Kucing</h2>
+        </div>
 
-        <!-- Awal FORM -->
         <form id="form-pemesanan">
           <div class="mb-3">
-            <!-- Input nama pemilik -->
             <label class="form-label">Nama Pemilik</label>
             <input type="text" class="form-control" required />
           </div>
           <div class="mb-3">
-            <!-- Input nama kucing -->
             <label class="form-label">Nama Kucing</label>
             <input type="text" class="form-control" required />
           </div>
           <div class="mb-3">
-            <!-- Input umur kucing -->
-            <label class="form-label">Umur Kucing (dalam tahun)</label>
-            <input type="number" class="form-control" required />
+            <label class="form-label">Umur Kucing (tahun)</label>
+            <input type="number" class="form-control" min="0" required />
           </div>
           <div class="mb-3">
-            <!-- Input jenis kelamin kucing -->
             <label class="form-label">Jenis Kelamin Kucing</label>
             <select class="form-select" required>
               <option value="">Pilih...</option>
@@ -87,42 +113,29 @@
             </select>
           </div>
           <div class="mb-3">
-            <!-- Input tanggal kedatangan -->
             <label class="form-label">Tanggal Kedatangan</label>
             <input type="date" class="form-control" required />
           </div>
-          <button type="submit" class="btn btn-success w-100">Oke</button>
-          <!-- Tombol submit -->
+          <button type="submit" class="btn btn-success w-100">📝 Pesan Sekarang</button>
         </form>
-        <!-- Akhir FORM -->
 
-        <!-- Pesan sukses setelah submit form -->
-        <div id="pesan-sukses">Terima kasih, data Anda sudah kami simpan. Silakan datang ke klinik sesuai jadwal yang Anda berikan.</div>
+        <div id="pesan-sukses">
+          🎉 Terima kasih, data Anda sudah kami simpan. <br />
+          Silakan datang ke klinik sesuai jadwal yang Anda berikan.
+        </div>
       </div>
     </div>
 
-    <!-- Script JavaScript untuk menangani form -->
     <script>
-      const form = document.getElementById('form-pemesanan'); // Ambil elemen form
-      const pesanSukses = document.getElementById('pesan-sukses'); // Ambil elemen pesan sukses
+      const form = document.getElementById('form-pemesanan');
+      const pesanSukses = document.getElementById('pesan-sukses');
 
-      // Saat form dikirim (submit)
       form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Mencegah form reload halaman
-        form.style.display = 'none'; // Sembunyikan form setelah submit
-        pesanSukses.style.display = 'block'; // Tampilkan pesan sukses
+        event.preventDefault();
+        form.style.display = 'none';
+        pesanSukses.style.display = 'block';
       });
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('service-worker.js')
-          .then((registration) => {
-            console.log('Service Worker terdaftar dengan sukses:', registration.scope);
-          })
-          .catch((error) => {
-            console.log('Pendaftaran Service Worker gagal:', error);
-          });
-      }
     </script>
-    <script src="js/bootstrap.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

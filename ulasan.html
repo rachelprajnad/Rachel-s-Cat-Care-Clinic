@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <!-- Metadata dasar -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rachel's Cat Care - Ulasan</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- CSS Kustom -->
+    <style>
+      /* Warna latar dan font dasar */
+      body {
+        background: #fffdfd;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Kartu ulasan */
+      .testimonial-card {
+        background: #fff6f8;
+        border: 1px solid #ffe1e8;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        /* Flex basis untuk 2 kolom responsif */
+        flex: 1 1 calc(50% - 1rem);
+        min-width: 200px;
+        max-width: 100%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s;
+        opacity: 0; /* Awalnya transparan, muncul animasi */
+      }
+
+      /* Tampil animasi */
+      .testimonial-card.show {
+        opacity: 1;
+      }
+
+      /* Efek hover */
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Teks ulasan */
+      .testimonial-card p {
+        font-style: italic;
+        color: #555;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Nama pengulas */
+      .testimonial-card strong {
+        color: #ff7f7f;
+        font-size: 0.9rem;
+      }
+
+      /* Form ulasan */
+      .review-form {
+        background: #fff6f8;
+        border: 1px solid #ffe1e8;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Input dan textarea form */
+      .review-form input,
+      .review-form textarea {
+        border: 1px solid #ffdada;
+        border-radius: 0.5rem;
+      }
+
+      /* Efek fokus input */
+      .review-form input:focus,
+      .review-form textarea:focus {
+        border-color: #ff9e9e;
+        box-shadow: 0 0 0 0.15rem rgba(255, 158, 158, 0.3);
+      }
+
+      /* Tombol pink */
+      .btn-pink {
+        background-color: #ff9e9e;
+        border: none;
+        color: white;
+        font-weight: 600;
+        transition: background-color 0.3s;
+      }
+
+      /* Hover tombol pink */
+      .btn-pink:hover {
+        background-color: #ff7f7f;
+      }
+
+      /* Media query untuk layar sangat kecil supaya 1 kolom */
+      @media (max-width: 480px) {
+        .testimonial-card {
+          flex: 1 1 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="home.html"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Layanan</a></li>
+            <li class="nav-item"><a class="nav-link" href="pasien.html">Pasien</a></li>
+            <li class="nav-item"><a class="nav-link active" href="ulasan.html">Ulasan</a></li>
+            <li class="nav-item"><a class="nav-link" href="alamat.html">Alamat</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Konten Ulasan -->
+    <div class="container py-5">
+      <!-- Judul -->
+      <h2 class="text-center mb-4" style="color: #ff7f7f; font-weight: 700">💬 Ulasan Pelanggan</h2>
+
+      <!-- Container ulasan dengan flex-wrap -->
+      <div id="testimonial-container" class="d-flex flex-wrap justify-content-center gap-3">
+        <!-- Ulasan default -->
+        <div class="testimonial-card show">
+          <p>"Mpus saya jadi glowing setelah grooming di sini!" 🐱✨</p>
+          <strong>- Ayu</strong>
+        </div>
+        <div class="testimonial-card show">
+          <p>"Kucing saya pulang baunya wangi kayak selebgram!" 🌸😻</p>
+          <strong>- Budi</strong>
+        </div>
+        <div class="testimonial-card show">
+          <p>"Awalnya galak, sekarang kucing saya jadi kalem dan rajin skincare." 🧴🐈</p>
+          <strong>- Clara</strong>
+        </div>
+        <div class="testimonial-card show">
+          <p>"Saya kira kucing saya nggak bisa lebih imut, ternyata salah!" 💖🐾</p>
+          <strong>- Dimas</strong>
+        </div>
+      </div>
+
+      <!-- Form kirim ulasan -->
+      <div class="mt-5 review-form" style="max-width: 500px; margin: auto">
+        <h4 style="color: #ff7f7f; font-weight: 600">📝 Tinggalkan Ulasan Kamu</h4>
+        <form onsubmit="event.preventDefault(); kirimUlasan();" style="display: flex; flex-direction: column; gap: 0.75rem">
+          <input type="text" id="namaUlasan" placeholder="👤 Nama kamu" class="form-control" required />
+          <textarea id="teksUlasan" placeholder="💬 Tulis ulasan kamu..." rows="3" class="form-control" required></textarea>
+          <button type="submit" class="btn btn-pink mt-2">Kirim Ulasan</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+      // Fungsi untuk menambahkan ulasan baru
+      function kirimUlasan() {
+        // Ambil nilai input
+        const nama = document.getElementById('namaUlasan').value.trim();
+        const teks = document.getElementById('teksUlasan').value.trim();
+
+        if (nama && teks) {
+          // Cari container ulasan
+          const container = document.getElementById('testimonial-container');
+
+          // Buat elemen div baru
+          const div = document.createElement('div');
+          div.className = 'testimonial-card';
+          div.innerHTML = `<p>"${teks}"</p><strong>- ${nama}</strong>`;
+
+          // Tambahkan ke container
+          container.appendChild(div);
+
+          // Animasi muncul
+          setTimeout(() => {
+            div.classList.add('show');
+          }, 50);
+
+          // Reset form
+          document.getElementById('namaUlasan').value = '';
+          document.getElementById('teksUlasan').value = '';
+
+          // Notifikasi
+          alert('Terima kasih atas ulasanmu!');
+        }
+      }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

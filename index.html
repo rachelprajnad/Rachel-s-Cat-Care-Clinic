@@ -1,6 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="home.html"></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Layanan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pasien.html">Pasien</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ulasan.html">Ulasan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="alamat.html">Alamat</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rachel's Cat Care Clinic</title>
@@ -395,147 +428,11 @@
       }
     </script>
 
-    <script>
-      fetch('https://api.thecatapi.com/v1/images/search?limit=3')
-        .then((response) => response.json())
-        .then((data) => {
-          const container = document.getElementById('cat-api-images');
-          container.innerHTML = `
-          <div style="text-align:center; margin:3rem 0;">
-  <span style="font-size:1.2rem; color:#ff7f7f;">⋆｡°✩⋆｡°✩⋆｡°✩</span>
-</div>
+   
+   
 
-        <h3 style="width:100%; text-align:center; margin-bottom:1rem; color:#ff7f7f; font-weight:600;">
-          😻 Pasien Kucing Gemas Hari Ini
-        </h3>
-      `;
-          data.forEach((cat, index) => {
-            const div = document.createElement('div');
-            div.style.display = 'flex';
-            div.style.flexDirection = 'column';
-            div.style.alignItems = 'center';
-            div.style.margin = '10px';
-            div.style.opacity = '0';
-            div.style.transform = 'scale(0.8)';
-            div.style.transition = 'all 0.5s ease';
-
-            const img = document.createElement('img');
-            img.src = cat.url;
-            img.alt = 'Gambar Kucing';
-            img.style.width = '160px';
-            img.style.height = '160px';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '12px';
-            img.style.border = '4px solid #ffb3b3';
-            img.style.boxShadow = '0 4px 10px rgba(0,0,0,0.15)';
-            img.style.cursor = 'pointer';
-            img.style.transition = 'transform 0.3s ease';
-
-            img.addEventListener('mouseover', () => {
-              img.style.transform = 'scale(1.1) rotate(2deg)';
-            });
-            img.addEventListener('mouseout', () => {
-              img.style.transform = 'scale(1)';
-            });
-
-            const caption = document.createElement('p');
-            caption.innerText = 'Meow~ 🐾';
-            caption.style.marginTop = '0.5rem';
-            caption.style.fontSize = '0.9rem';
-            caption.style.color = '#555';
-
-            div.appendChild(img);
-            div.appendChild(caption);
-            container.appendChild(div);
-
-            setTimeout(() => {
-              div.style.opacity = '1';
-              div.style.transform = 'scale(1)';
-            }, index * 200);
-          });
-        })
-        .catch((err) => {
-          console.error('Gagal mengambil data:', err);
-          document.getElementById('cat-api-images').innerHTML = '<p style="color:red;">Gagal mengambil gambar kucing.</p>';
-        });
-    </script>
-    <div style="text-align: center; margin: 3rem 0">
-      <h3 style="color: #ff7f7f; font-weight: 700; font-size: 1.8rem">💬 Apa kata pelanggan?</h3>
-
-      <div id="testimonial-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.5rem">
-        <div class="testimonial-card">
-          <p>"Mpus saya jadi glowing setelah grooming di sini!" 🐱✨</p>
-          <strong>- Ayu</strong>
-        </div>
-        <div class="testimonial-card">
-          <p>"Kucing saya pulang-pulang baunya wangi kayak selebgram!" 🌸😻</p>
-          <strong>- Budi</strong>
-        </div>
-        <div class="testimonial-card">
-          <p>"Awalnya galak, sekarang kucing saya jadi kalem dan rajin skincare." 🧴🐈</p>
-          <strong>- Clara</strong>
-        </div>
-        <div class="testimonial-card">
-          <p>"Saya kira kucing saya nggak bisa lebih imut, ternyata salah!" 💖🐾</p>
-          <strong>- Dimas</strong>
-        </div>
-        <div class="testimonial-card">
-          <p>"Layanan di sini bikin mpus saya merasa jadi ratu!" 👑😽</p>
-          <strong>- Eka</strong>
-        </div>
-      </div>
-
-      <!-- Form Kirim Ulasan -->
-      <div style="margin-top: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; text-align: left">
-        <h4 style="color: #ff7f7f; font-weight: 600">📝 Tinggalkan Ulasan Kamu</h4>
-        <form onsubmit="event.preventDefault(); kirimUlasan();" style="display: flex; flex-direction: column; gap: 0.75rem">
-          <input type="text" id="namaUlasan" placeholder="Nama kamu" style="padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #ccc" required />
-          <textarea id="teksUlasan" placeholder="Tulis ulasan lucu kamu di sini..." rows="3" style="padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #ccc" required></textarea>
-          <button type="submit" style="background: #ff7f7f; color: white; border: none; padding: 0.7rem; border-radius: 0.5rem; cursor: pointer; font-weight: 500">Kirim Ulasan</button>
-        </form>
-      </div>
-    </div>
-
-    <style>
-      .testimonial-card {
-        background: #fff6f8;
-        border: 1px solid #ffe1e8;
-        border-radius: 0.75rem;
-        padding: 1rem;
-        width: 220px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-      }
-      .testimonial-card p {
-        font-style: italic;
-        color: #555;
-        margin-bottom: 0.5rem;
-      }
-      .testimonial-card strong {
-        color: #ff7f7f;
-        font-size: 0.9rem;
-      }
-      .testimonial-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      }
-    </style>
-
-    <script>
-      function kirimUlasan() {
-        const nama = document.getElementById('namaUlasan').value.trim();
-        const teks = document.getElementById('teksUlasan').value.trim();
-        if (nama && teks) {
-          const container = document.getElementById('testimonial-container');
-          const div = document.createElement('div');
-          div.className = 'testimonial-card';
-          div.innerHTML = `<p>"${teks}"</p><strong>- ${nama}</strong>`;
-          container.appendChild(div);
-          document.getElementById('namaUlasan').value = '';
-          document.getElementById('teksUlasan').value = '';
-          alert('Terima kasih atas ulasanmu!');
-        }
-      }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
   </body>
 </html>

@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
+  <!-- Menetapkan bahasa dokumen sebagai Bahasa Indonesia -->
   <head>
     <meta charset="UTF-8" />
+    <!-- Encoding karakter UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Agar responsive di perangkat mobile -->
     <title>Rachel's Cat Care - Alamat</title>
+    <!-- Judul halaman di tab browser -->
+    <!-- Memuat Bootstrap CSS dari CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       body {
-        background: #fffdfd;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #fffdfd; /* Warna latar putih sedikit krem */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font default */
       }
       .info-box {
-        background: #fff6f8;
-        border: 1px solid #ffe1e8;
-        border-radius: 0.75rem;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        background: #fff6f8; /* Latar kotak info */
+        border: 1px solid #ffe1e8; /* Garis tepi kotak */
+        border-radius: 0.75rem; /* Sudut melengkung */
+        padding: 1.5rem; /* Ruang dalam */
+        margin-bottom: 2rem; /* Jarak bawah */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Bayangan kotak */
       }
       iframe {
-        border-radius: 0.75rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem; /* Sudut melengkung pada peta */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan peta */
       }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
+    <!-- Navbar navigasi -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
       <div class="container">
         <a class="navbar-brand" href="home.html"></a>
+        <!-- Brand logo/link ke home (kosong) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
+          <!-- Ikon toggle menu saat mobile -->
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            <!-- Menu navigasi rata kanan -->
             <li class="nav-item">
               <a class="nav-link" href="index.html">Layanan</a>
             </li>
@@ -45,33 +53,126 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="alamat.html">Alamat</a>
+              <!-- Halaman aktif -->
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- Konten -->
+    <!-- Konten utama -->
     <div class="container py-5 text-center">
       <h2 style="color: #ff7f7f; font-weight: 700; font-size: 2rem">📍 Lokasi Rachel's Cat Care</h2>
+      <!-- Judul -->
       <p class="mb-4">Temui kami di tempat paling nyaman untuk kucingmu!</p>
+      <!-- Deskripsi -->
       <div class="info-box mx-auto" style="max-width: 500px">
+        <!-- Kotak info alamat -->
         <p><strong>Alamat:</strong><br />Jl. Meong Bahagia No. 123<br />Kota Kucing, Indonesia</p>
         <p><strong>Telepon:</strong><br /><a href="tel:081234567890" style="color: #ff7f7f; text-decoration: none">0812-3456-7890</a></p>
         <p><strong>Email:</strong><br /><a href="mailto:rachelscatcare@example.com" style="color: #ff7f7f; text-decoration: none">rachelscatcare@example.com</a></p>
       </div>
-      <!-- Embed Peta Google -->
+      <!-- Embed peta Google Maps -->
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.515507457413!2d110.366212!3d-7.825872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNDknMzMuMSJTIDExMMKwMjEnNTcuMyJF!5e0!3m2!1sen!2sid!4v1610000000000!5m2!1sen!2sid"
         width="100%"
-        height="300"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
+        <!--
+        Lebar
+        penuh
+        --
       >
+        height="300"
+        <!-- Tinggi peta -->
+        style="border: 0" allowfullscreen="" loading="lazy" >
       </iframe>
     </div>
 
+    <!-- Memuat Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Fungsi membuat elemen produk (Tidak dipakai di halaman ini)
+      const generateProduk = (array, containerId) => {
+        const container = document.getElementById(containerId); // Ambil container
+        container.innerHTML = ''; // Bersihkan isinya
+        array.forEach((p, index) => {
+          const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : ''); // Buat bintang rating
+          const card = document.createElement('div'); // Buat div produk
+          card.className = 'col-md-3 position-relative';
+          card.style.transitionDelay = index * 100 + 'ms'; // Delay animasi
+          // Isi kartu produk
+          card.innerHTML = `
+            ${p.badge ? `<div class="badge-custom ${p.badge === 'Baru' ? 'badge-new' : ''}">${p.badge}</div>` : ''}
+            <div class="card">
+              <img src="${p.gambar}" class="card-img-top" alt="${p.nama}">
+              <div class="card-body">
+                <h5 class="card-title">${p.nama}</h5>
+                <div class="star">${stars}</div>
+                <p class="card-text">
+                  ${p.hargaAsli ? `<span class="price-old">${p.hargaAsli}</span>` : ''}
+                  <span class="price-new">${p.harga}</span>
+                </p>
+                <p><small><strong>Jadwal:</strong> ${p.jadwal}</small></p>
+                <p><small><strong>Dokter:</strong> ${p.dokter}</small></p>
+                <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#detailModal"
+                  onclick="tampilkanDetailProduk(
+                    '${p.nama.replace(/'/g, "\\'")}',
+                    '${p.deskripsi.replace(/'/g, "\\'")}',
+                    '${p.dokter.replace(/'/g, "\\'")}',
+                    '${p.harga}',
+                    '${p.hargaAsli || ''}',
+                    ${p.rating},
+                    '${p.jadwal.replace(/'/g, "\\'")}'
+                  )">
+                  Detail
+                </button>
+                <button class="btn btn-success" onclick="redirectToForm()">Pesan Sekarang</button>
+              </div>
+            </div>`;
+          container.appendChild(card); // Tambahkan ke container
+          setTimeout(() => card.querySelector('.card').classList.add('visible'), 50); // Animasi muncul
+        });
+      };
+
+      // Menampilkan detail produk di modal
+      const tampilkanDetailProduk = (nama, deskripsi, dokter, harga, hargaAsli, rating, jadwal) => {
+        document.getElementById('modal-nama-layanan').innerText = nama; // Nama layanan
+        document.getElementById('modal-deskripsi').innerText = deskripsi; // Deskripsi
+        document.getElementById('modal-dokter').innerText = dokter; // Nama dokter
+        document.getElementById('modal-jadwal').innerText = jadwal; // Jadwal layanan
+        document.getElementById('modal-harga').innerHTML = hargaAsli
+          ? `<span class="text-muted text-decoration-line-through me-2">${hargaAsli}</span><span class="text-success fw-bold">${harga}</span>`
+          : `<span class="text-success fw-bold">${harga}</span>`; // Harga
+        const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : ''); // Bintang rating
+        document.getElementById('modal-rating').innerHTML = stars;
+      };
+
+      // Arahkan ke halaman pesan
+      function redirectToForm() {
+        window.location.href = 'pesan.html';
+      }
+
+      // Generate produk saat halaman dimuat
+      generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
+
+      // Event filter kategori produk
+      document.getElementById('kategoriFilter').addEventListener('change', (e) => {
+        const kategori = e.target.value;
+        if (kategori === 'semua') {
+          generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
+        } else {
+          const filtered = produkSalonKucing.filter((p) => p.kategori === kategori);
+          generateProduk(filtered, 'produk-salon-kucing-container');
+        }
+      });
+
+      // Daftarkan Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then((reg) => console.log('Service Worker terdaftar:', reg.scope))
+          .catch((err) => console.log('Service Worker gagal:', err));
+      }
+    </script>
   </body>
 </html>

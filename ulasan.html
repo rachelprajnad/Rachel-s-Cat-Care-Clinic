@@ -194,5 +194,174 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Fungsi untuk membuat elemen produk secara dinamis dan menampilkannya dalam container tertentu
+      const generateProduk = (array, containerId) => {
+        // Ambil elemen container berdasarkan ID
+        const container = document.getElementById(containerId);
+        // Kosongkan container sebelum mengisi ulang
+        container.innerHTML = '';
+        // Loop setiap produk dalam array
+        array.forEach((p, index) => {
+          // Buat string bintang rating
+          const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : '');
+          // Buat elemen div untuk kartu produk
+          const card = document.createElement('div');
+          card.className = 'col-md-3 position-relative'; // kelas bootstrap grid
+          // Tambahkan delay animasi untuk efek transisi
+          card.style.transitionDelay = index * 100 + 'ms';
+          // Isi HTML kartu produk
+          card.innerHTML = `
+        ${p.badge ? `<div class="badge-custom ${p.badge === 'Baru' ? 'badge-new' : ''}">${p.badge}</div>` : ''}
+        <div class="card">
+          <img src="${p.gambar}" class="card-img-top" alt="${p.nama}">
+          <div class="card-body">
+            <h5 class="card-title">${p.nama}</h5>
+            <div class="star">${stars}</div>
+            <p class="card-text">
+              ${p.hargaAsli ? `<span class="price-old">${p.hargaAsli}</span>` : ''}
+              <span class="price-new">${p.harga}</span>
+            </p>
+            <p><small><strong>Jadwal:</strong> ${p.jadwal}</small></p>
+            <p><small><strong>Dokter:</strong> ${p.dokter}</small></p>
+            <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#detailModal"
+              onclick="tampilkanDetailProduk(
+                '${p.nama.replace(/'/g, "\\'")}',
+                '${p.deskripsi.replace(/'/g, "\\'")}',
+                '${p.dokter.replace(/'/g, "\\'")}',
+                '${p.harga}',
+                '${p.hargaAsli || ''}',
+                ${p.rating},
+                '${p.jadwal.replace(/'/g, "\\'")}'
+              )">
+              Detail
+            </button>
+            <button class="btn btn-success" onclick="redirectToForm()">Pesan Sekarang</button>
+          </div>
+        </div>`;
+          // Tambahkan kartu ke dalam container
+          container.appendChild(card);
+          // Tambahkan kelas visible dengan delay (untuk efek transisi)
+          setTimeout(() => card.querySelector('.card').classList.add('visible'), 50);
+        });
+      };
+
+      // Fungsi untuk menampilkan detail produk dalam modal
+      const tampilkanDetailProduk = (nama, deskripsi, dokter, harga, hargaAsli, rating, jadwal) => {
+        // Isi elemen modal dengan data produk
+        document.getElementById('modal-nama-layanan').innerText = nama;
+        document.getElementById('modal-deskripsi').innerText = deskripsi;
+        document.getElementById('modal-dokter').innerText = dokter;
+        document.getElementById('modal-jadwal').innerText = jadwal;
+        // Jika ada hargaAsli, tampilkan harga lama dan baru, kalau tidak hanya harga baru
+        document.getElementById('modal-harga').innerHTML = hargaAsli
+          ? `<span class="text-muted text-decoration-line-through me-2">${hargaAsli}</span><span class="text-success fw-bold">${harga}</span>`
+          : `<span class="text-success fw-bold">${harga}</span>`;
+        // Buat string bintang rating
+        const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : '');
+        document.getElementById('modal-rating').innerHTML = stars;
+      };
+
+      // Fungsi untuk redirect ke halaman pemesanan
+      function redirectToForm() {
+        window.location.href = 'pesan.html';
+      }
+
+      // Registrasi service worker jika browser mendukung
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then((reg) => console.log('Service Worker terdaftar:', reg.scope))
+          .catch((err) => console.log('Service Worker gagal:', err));
+      }
+    </script>
+    <script>
+      // Deklarasi variabel untuk database IndexedDB
+      let db;
+      // Buka (atau buat) database IndexedDB bernama 'rachelCatClinicDB' versi 2
+      const request = indexedDB.open('rachelCatClinicDB', 2);
+      // Event jika terjadi error saat membuka IndexedDB
+      request.onerror = function (event) {
+        console.error('IndexedDB error:', event.target.errorCode);
+      };
+      // Event jika sukses membuka database
+      request.onsuccess = function (event) {
+        // Simpan referensi database ke variabel db
+        db = event.target.result;
+        console.log('Database ulasan siap 👍');
+        // Panggil fungsi untuk memuat ulasan favorit (fungsi ini harus ada di kode lain)
+        loadUlasanFavorit();
+      };
+      // Event jika perlu upgrade struktur database (misalnya pertama kali dibuat)
+      request.onupgradeneeded = function (event) {
+        db = event.target.result;
+        // Cek apakah Object Store 'ulasanFavorit' belum ada
+        if (!db.objectStoreNames.contains('ulasanFavorit')) {
+          // Buat Object Store dengan keyPath 'id' dan autoIncrement
+          db.createObjectStore('ulasanFavorit', { keyPath: 'id', autoIncrement: true });
+          console.log('Object Store ulasanFavorit dibuat');
+        }
+      };
+
+      // Simpan ulasan
+      function simpanUlasanFavorit(nama, teks) {
+        const tx = db.transaction('ulasanFavorit', 'readwrite');
+        const store = tx.objectStore('ulasanFavorit');
+        store.add({ nama: nama, teks: teks, waktu: new Date().toISOString() });
+        tx.oncomplete = () => {
+          console.log('Ulasan favorit disimpan!');
+          loadUlasanFavorit();
+        };
+      }
+
+      // Tampilkan ulasan yang tersimpan
+      function loadUlasanFavorit() {
+        const tx = db.transaction('ulasanFavorit', 'readonly');
+        const store = tx.objectStore('ulasanFavorit');
+        const request = store.getAll();
+        request.onsuccess = (event) => {
+          const data = event.target.result;
+          const container = document.getElementById('testimonial-container');
+
+          // Hapus dulu ulasan yang sudah ditampilkan
+          // Hanya hapus yang sebelumnya dimuat dari IndexedDB
+          const semuaCard = container.querySelectorAll('.testimonial-card[data-from-db]');
+          semuaCard.forEach((card) => card.remove());
+
+          // Tambahkan ulasan yang tersimpan
+          data.forEach((ulasan) => {
+            const div = document.createElement('div');
+            div.className = 'testimonial-card show';
+            div.setAttribute('data-from-db', 'true'); // tandai supaya nanti bisa dihapus
+            div.innerHTML = `<p>"${ulasan.teks}"</p><strong>- ${ulasan.nama}</strong>`;
+            container.appendChild(div);
+          });
+        };
+      }
+
+      // Modifikasi fungsi kirimUlasan agar juga simpan di IndexedDB
+      function kirimUlasan() {
+        const nama = document.getElementById('namaUlasan').value.trim();
+        const teks = document.getElementById('teksUlasan').value.trim();
+        if (nama && teks) {
+          // Tambah ke halaman
+          const container = document.getElementById('testimonial-container');
+          const div = document.createElement('div');
+          div.className = 'testimonial-card';
+          div.innerHTML = `<p>"${teks}"</p><strong>- ${nama}</strong>`;
+          container.appendChild(div);
+          setTimeout(() => div.classList.add('show'), 50);
+
+          // Simpan di IndexedDB
+          simpanUlasanFavorit(nama, teks);
+
+          // Reset form
+          document.getElementById('namaUlasan').value = '';
+          document.getElementById('teksUlasan').value = '';
+
+          alert('Terima kasih atas ulasanmu!');
+        }
+      }
+    </script>
   </body>
 </html>

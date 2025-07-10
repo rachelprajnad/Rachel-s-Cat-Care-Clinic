@@ -178,5 +178,88 @@
           document.getElementById('pasien-container').innerHTML = '<p style="color:red;">Gagal mengambil data pasien.</p>';
         });
     </script>
+    <script>
+      const generateProduk = (array, containerId) => {
+        // Fungsi untuk generate daftar produk
+        const container = document.getElementById(containerId); // Ambil elemen container target
+        container.innerHTML = ''; // Kosongkan container dulu
+        array.forEach((p, index) => {
+          // Loop setiap item produk
+          const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : ''); // Buat string bintang rating
+          const card = document.createElement('div'); // Buat elemen div untuk card
+          card.className = 'col-md-3 position-relative'; // Tambahkan class Bootstrap grid
+          card.style.transitionDelay = index * 100 + 'ms'; // Delay animasi muncul
+          card.innerHTML = ` // Template HTML isi card
+      ${p.badge ? `<div class="badge-custom ${p.badge === 'Baru' ? 'badge-new' : ''}">${p.badge}</div>` : ''}
+      <div class="card">
+        <img src="${p.gambar}" class="card-img-top" alt="${p.nama}">
+        <div class="card-body">
+          <h5 class="card-title">${p.nama}</h5>
+          <div class="star">${stars}</div>
+          <p class="card-text">
+            ${p.hargaAsli ? `<span class="price-old">${p.hargaAsli}</span>` : ''}
+            <span class="price-new">${p.harga}</span>
+          </p>
+          <p><small><strong>Jadwal:</strong> ${p.jadwal}</small></p>
+          <p><small><strong>Dokter:</strong> ${p.dokter}</small></p>
+          <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#detailModal"
+            onclick="tampilkanDetailProduk(
+              '${p.nama.replace(/'/g, "\\'")}',
+              '${p.deskripsi.replace(/'/g, "\\'")}',
+              '${p.dokter.replace(/'/g, "\\'")}',
+              '${p.harga}',
+              '${p.hargaAsli || ''}',
+              ${p.rating},
+              '${p.jadwal.replace(/'/g, "\\'")}'
+            )">
+            Detail
+          </button>
+          <button class="btn btn-success" onclick="redirectToForm()">Pesan Sekarang</button>
+        </div>
+      </div>`; // Akhir template HTML card
+          container.appendChild(card); // Tambahkan card ke dalam container
+          setTimeout(() => card.querySelector('.card').classList.add('visible'), 50); // Tambahkan animasi muncul
+        });
+      };
+
+      const tampilkanDetailProduk = (nama, deskripsi, dokter, harga, hargaAsli, rating, jadwal) => {
+        // Fungsi tampilkan modal detail produk
+        document.getElementById('modal-nama-layanan').innerText = nama; // Isi nama layanan di modal
+        document.getElementById('modal-deskripsi').innerText = deskripsi; // Isi deskripsi
+        document.getElementById('modal-dokter').innerText = dokter; // Isi nama dokter
+        document.getElementById('modal-jadwal').innerText = jadwal; // Isi jadwal
+        document.getElementById('modal-harga').innerHTML = hargaAsli // Tampilkan harga dengan coret jika ada harga asli
+          ? `<span class="text-muted text-decoration-line-through me-2">${hargaAsli}</span><span class="text-success fw-bold">${harga}</span>`
+          : `<span class="text-success fw-bold">${harga}</span>`;
+        const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : ''); // Hitung bintang rating
+        document.getElementById('modal-rating').innerHTML = stars; // Tampilkan bintang rating
+      };
+
+      function redirectToForm() {
+        // Fungsi redirect ke halaman pemesanan
+        window.location.href = 'pesan.html';
+      }
+
+      generateProduk(produkSalonKucing, 'produk-salon-kucing-container'); // Generate produk pertama kali saat load
+
+      document.getElementById('kategoriFilter').addEventListener('change', (e) => {
+        // Event filter kategori
+        const kategori = e.target.value; // Ambil kategori yang dipilih
+        if (kategori === 'semua') {
+          generateProduk(produkSalonKucing, 'produk-salon-kucing-container'); // Tampilkan semua jika 'semua'
+        } else {
+          const filtered = produkSalonKucing.filter((p) => p.kategori === kategori); // Filter produk sesuai kategori
+          generateProduk(filtered, 'produk-salon-kucing-container'); // Tampilkan produk hasil filter
+        }
+      });
+
+      if ('serviceWorker' in navigator) {
+        // Cek apakah browser mendukung Service Worker
+        navigator.serviceWorker
+          .register('sw.js') // Daftarkan service worker
+          .then((reg) => console.log('Service Worker terdaftar:', reg.scope)) // Berhasil daftar
+          .catch((err) => console.log('Service Worker gagal:', err)); // Gagal daftar
+      }
+    </script>
   </body>
 </html>

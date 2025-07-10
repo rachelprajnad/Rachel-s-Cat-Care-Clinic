@@ -1,218 +1,246 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html>  <!-- Deklarasi dokumen HTML5 -->
+<html lang="id"> <!-- Tag HTML bahasa Indonesia -->
   <head>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="home.html"></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Layanan</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="pasien.html">Pasien</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ulasan.html">Ulasan</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="alamat.html">Alamat</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rachel's Cat Care Clinic</title>
-    <link rel="manifest" href="/manifest.json" />
+    <meta charset="UTF-8" /> <!-- Set karakter encoding UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <!-- Responsive viewport -->
+    <title>Rachel's Cat Care Clinic</title> <!-- Judul halaman -->
+    <link rel="manifest" href="/manifest.json" /> <!-- Link ke manifest PWA -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <style>
-      body {
-        background: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-      header.banner {
-        background: linear-gradient(135deg, #ffb3b3, #ffe6e6);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      }
-      header.banner::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
-        animation: rotateBg 10s linear infinite;
-      }
-      @keyframes rotateBg {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      header.banner h1 {
-        font-weight: 700;
-        font-size: 2.75rem;
-        letter-spacing: 1px;
-        background: linear-gradient(90deg, #ff7f7f, #ffbaba);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
-      }
-      .badge-custom {
-        position: absolute;
-        top: 0.75rem;
-        left: 0.75rem;
-        background: #ff7f7f;
-        color: white;
-        font-size: 0.75rem;
-        padding: 0.3em 0.6em;
-        border-radius: 0.4rem;
-        z-index: 1;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-      }
-      .badge-new {
-        background: #4caf50;
-      }
-      .card {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.5s ease;
-        border: none;
-        border-radius: 1rem;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      }
-      .card.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .card-img-top {
-        height: 180px;
-        object-fit: cover;
-        border-bottom: 1px solid #eee;
-      }
-      .card-title {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #333;
-      }
-      .btn-primary {
-        background: #ff7f7f;
-        border: none;
-      }
-      .btn-primary:hover {
-        background: #ff4d4d;
-      }
-      .btn-success {
-        background: #4caf50;
-        border: none;
-      }
-      .btn-success:hover {
-        background: #45a049;
-      }
-      .modal-header {
-        background: #ff7f7f;
-      }
-      .modal-title {
-        color: #fff;
-      }
-      .filter-container {
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-      .star {
-        color: #f4c150;
-        font-size: 1rem;
-      }
-      .price-old {
-        color: #888;
-        text-decoration: line-through;
-        margin-right: 0.3rem;
-      }
-      .price-new {
-        font-weight: 600;
-        color: #333;
-      }
-      .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #25d366;
-        color: white;
-        padding: 12px 16px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 500;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        z-index: 999;
-        transition: background 0.3s;
-      }
-      .whatsapp-float:hover {
-        background-color: #128c7e;
-      }
+      /* ...CSS kamu... */
     </style>
   </head>
   <body>
-    <header class="banner text-center py-5">
-      <h1 class="display-4">Rachel's Cat Care Clinic</h1>
-    </header>
-
-    <main class="container py-5">
-      <div class="filter-container">
-        <select id="kategoriFilter" class="form-select w-50 mx-auto">
-          <option value="semua">🌟 Semua Kategori</option>
-          <option value="perawatan">Perawatan Dasar</option>
-          <option value="grooming">Grooming</option>
-          <option value="kesehatan">Kesehatan</option>
-        </select>
-      </div>
-      <div class="row g-4" id="produk-salon-kucing-container"></div>
-      <div style="background: #fff6f8; padding: 2rem; border-radius: 1rem; margin-top: 2rem">
-        <div id="cat-api-images" class="d-flex justify-content-center flex-wrap"></div>
-      </div>
-    </main>
-
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Detail Layanan</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <h4 id="modal-nama-layanan" class="mb-3"></h4>
-            <div id="modal-rating" class="mb-2 text-warning"></div>
-            <p id="modal-deskripsi" class="mb-3"></p>
-            <p><strong>Harga:</strong> <span id="modal-harga"></span></p>
-            <p><strong>Dokter:</strong> <span id="modal-dokter"></span></p>
-            <p><strong>Jadwal:</strong> <span id="modal-jadwal"></span></p>
-          </div>
+    <!-- ⬇️ Nav pindah ke sini -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top"> <!-- Navbar Bootstrap -->
+      <div class="container"> <!-- Container navbar -->
+        <a class="navbar-brand" href="home.html"></a> <!-- Brand logo/link -->
+        <button
+          class="navbar-toggler" 
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span> <!-- Icon hamburger -->
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav"> <!-- Menu collapsible -->
+          <ul class="navbar-nav ms-auto">  <!-- List menu di kanan -->
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Layanan</a> <!-- Link ke Layanan -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pasien.html">Pasien</a> <!-- Link ke Pasien -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ulasan.html">Ulasan</a> <!-- Link ke Ulasan -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="alamat.html">Alamat</a> <!-- Link ke Alamat -->
+            </li>
+          </ul>
         </div>
       </div>
+    </nav>
+
+    <meta charset="UTF-8" /> <!-- (Duplikat) Set encoding lagi -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- (Duplikat) Responsive viewport -->
+    <title>Rachel's Cat Care Clinic</title>  <!-- (Duplikat) Judul halaman -->
+    <link rel="manifest" href="/manifest.json" />  <!-- (Duplikat) Link manifest -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" /> <!-- (Duplikat) Link Bootstrap -->
+    <style>
+      body {
+        background: #f8f9fa;  /* Warna latar abu muda */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font */
+      }
+      header.banner {
+        background: linear-gradient(135deg, #ffb3b3, #ffe6e6); /* Gradient pink */
+        position: relative; /* Untuk positioning elemen dalamnya */
+        overflow: hidden; /* Sembunyikan kelebihan elemen */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Shadow banner */
+      }
+       header.banner::before {
+        content: ''; /* Elemen pseudo kosong */
+        position: absolute; /* Posisi absolut */
+        top: -50%; /* Atur posisi atas */
+        left: -50%; /* Atur posisi kiri */
+        width: 200%; /* Lebar 2x */
+        height: 200%; /* Tinggi 2x */
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%); /* Radial gradient efek cahaya */
+        animation: rotateBg 10s linear infinite; /* Animasi rotate background */
+      }
+      @keyframes rotateBg {
+        from {
+          transform: rotate(0deg); /* Mulai rotasi 0 derajat */
+        }
+        to {
+          transform: rotate(360deg); /* Akhir rotasi 360 derajat */
+        }
+      }
+      header.banner h1 {
+        font-weight: 700; /* Bold */
+        font-size: 2.75rem; /* Ukuran besar */
+        letter-spacing: 1px; /* Spasi antar huruf */
+        background: linear-gradient(90deg, #ff7f7f, #ffbaba); /* Gradient teks */
+        -webkit-background-clip: text; /* Clip gradient ke teks (Safari) */
+        background-clip: text; /* Clip gradient ke teks */
+        -webkit-text-fill-color: transparent; /* Buat teks transparan (Safari) */
+        text-shadow: 1px 1px rgba(0, 0, 0, 0.1); /* Shadow tipis */
+      }
+      .badge-custom { /* Gaya untuk badge umum di pojok atas kartu */
+  position: absolute; /* Posisikan secara absolut di dalam parent yang relatif */
+  top: 0.75rem; /* Jarak dari atas */
+  left: 0.75rem; /* Jarak dari kiri */
+  background: #ff7f7f; /* Warna latar merah muda */
+  color: white; /* Warna teks putih */
+  font-size: 0.75rem; /* Ukuran font kecil */
+  padding: 0.3em 0.6em; /* Padding dalam badge */
+  border-radius: 0.4rem; /* Membuat sudut melengkung */
+  z-index: 1; /* Supaya tampil di atas konten lain */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Bayangan lembut */
+}
+
+.badge-new { /* Tambahan style khusus jika badge bertuliskan "Baru" */
+  background: #4caf50; /* Warna hijau */
+}
+
+.card { /* Gaya umum untuk card produk */
+  opacity: 0; /* Awalnya transparan untuk efek animasi */
+  transform: translateY(20px); /* Geser ke bawah sedikit (sebelum animasi muncul) */
+  transition: all 0.5s ease; /* Animasi transisi untuk muncul */
+  border: none; /* Hilangkan border default */
+  border-radius: 1rem; /* Sudut melengkung */
+  overflow: hidden; /* Potong isi yang keluar */
+  background: #fff; /* Latar belakang putih */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+}
+
+.card.visible { /* Kartu yang sudah muncul */
+  opacity: 1; /* Tampilkan penuh */
+  transform: translateY(0); /* Geser ke posisi semula */
+}
+
+.card-img-top { /* Gambar bagian atas kartu */
+  height: 180px; /* Tinggi gambar tetap */
+  object-fit: cover; /* Potong gambar agar proporsional */
+  border-bottom: 1px solid #eee; /* Garis pembatas di bawah gambar */
+}
+
+.card-title { /* Judul layanan di dalam kartu */
+  font-size: 1.15rem; /* Ukuran sedang */
+  font-weight: 600; /* Tebal */
+  color: #333; /* Warna abu gelap */
+}
+
+.btn-primary { /* Tombol "Detail" */
+  background: #ff7f7f; /* Warna latar merah muda */
+  border: none; /* Tanpa border */
+}
+
+.btn-primary:hover { /* Efek hover tombol primary */
+  background: #ff4d4d; /* Warna lebih gelap saat hover */
+}
+
+.btn-success { /* Tombol "Pesan Sekarang" */
+  background: #4caf50; /* Hijau */
+  border: none; /* Tanpa border */
+}
+
+.btn-success:hover { /* Efek hover tombol sukses */
+  background: #45a049; /* Hijau lebih gelap */
+}
+
+.modal-header { /* Header pada modal pop-up */
+  background: #ff7f7f; /* Warna latar merah muda */
+}
+
+.modal-title { /* Judul modal */
+  color: #fff; /* Warna teks putih */
+}
+
+.filter-container { /* Kontainer dropdown filter kategori */
+  margin-bottom: 1.5rem; /* Jarak bawah */
+  text-align: center; /* Tengah */
+}
+
+.star { /* Gaya untuk tampilan bintang rating */
+  color: #f4c150; /* Warna kuning keemasan */
+  font-size: 1rem; /* Ukuran normal */
+}
+
+.price-old { /* Harga yang dicoret (harga asli sebelum diskon) */
+  color: #888; /* Abu-abu */
+  text-decoration: line-through; /* Coret */
+  margin-right: 0.3rem; /* Jarak kanan */
+}
+
+.price-new { /* Harga yang ditampilkan setelah diskon */
+  font-weight: 600; /* Tebal */
+  color: #333; /* Abu gelap */
+}
+
+.whatsapp-float { /* Tombol mengambang untuk WhatsApp */
+  position: fixed; /* Tetap di posisi */
+  bottom: 20px; /* Jarak dari bawah layar */
+  right: 20px; /* Jarak dari kanan layar */
+  background-color: #25d366; /* Warna hijau WhatsApp */
+  color: white; /* Warna teks putih */
+  padding: 12px 16px; /* Ruang dalam */
+  border-radius: 50px; /* Bentuk bulat lonjong */
+  text-decoration: none; /* Hilangkan underline */
+  font-weight: 500; /* Sedikit tebal */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Bayangan */
+  z-index: 999; /* Di atas semua elemen lain */
+  transition: background 0.3s; /* Animasi hover */
+}
+
+.whatsapp-float:hover { /* Saat tombol WhatsApp di-hover */
+  background-color: #128c7e; /* Hijau lebih gelap */
+}
+</style> <!-- Penutup style -->
+</head> <!-- Penutup head -->
+<body> <!-- Awal isi konten HTML -->
+
+<header class="banner text-center py-5"> <!-- Header banner atas halaman -->
+  <h1 class="display-4">Rachel's Cat Care Clinic</h1> <!-- Judul utama halaman -->
+</header>
+
+   <main class="container py-5"> <!-- Bagian utama konten dengan padding -->
+  <div class="filter-container"> <!-- Kontainer untuk dropdown filter kategori -->
+    <select id="kategoriFilter" class="form-select w-50 mx-auto"> <!-- Dropdown pilihan kategori -->
+      <option value="semua">🌟 Semua Kategori</option> <!-- Opsi semua kategori -->
+      <option value="perawatan">Perawatan Dasar</option> <!-- Opsi kategori perawatan -->
+      <option value="grooming">Grooming</option> <!-- Opsi kategori grooming -->
+      <option value="kesehatan">Kesehatan</option> <!-- Opsi kategori kesehatan -->
+    </select>
+  </div>
+  <div class="row g-4" id="produk-salon-kucing-container"></div> <!-- Tempat kartu produk akan ditampilkan -->
+  <div style="background: #fff6f8; padding: 2rem; border-radius: 1rem; margin-top: 2rem"> <!-- Area khusus untuk gambar dari API -->
+    <div id="cat-api-images" class="d-flex justify-content-center flex-wrap"></div> <!-- Kontainer gambar API -->
+  </div>
+</main>
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true"> <!-- Modal pop-up detail layanan -->
+  <div class="modal-dialog modal-lg"> <!-- Ukuran modal besar -->
+    <div class="modal-content"> <!-- Konten modal -->
+      <div class="modal-header"> <!-- Header modal -->
+        <h5 class="modal-title">Detail Layanan</h5> <!-- Judul modal -->
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button> <!-- Tombol tutup modal -->
+      </div>
+      <div class="modal-body"> <!-- Isi modal -->
+        <h4 id="modal-nama-layanan" class="mb-3"></h4> <!-- Nama layanan -->
+        <div id="modal-rating" class="mb-2 text-warning"></div> <!-- Rating bintang -->
+        <p id="modal-deskripsi" class="mb-3"></p> <!-- Deskripsi layanan -->
+        <p><strong>Harga:</strong> <span id="modal-harga"></span></p> <!-- Harga layanan -->
+        <p><strong>Dokter:</strong> <span id="modal-dokter"></span></p> <!-- Dokter yang menangani -->
+        <p><strong>Jadwal:</strong> <span id="modal-jadwal"></span></p> <!-- Jadwal layanan -->
+      </div>
     </div>
-    <body>
-      <!-- Konten halaman kamu -->
+  </div>
+</div>
+<body> <!-- Penutup body  -->
+
 
       <!-- SCRIPT PRODUK -->
       <script>
@@ -392,41 +420,68 @@
         });
       };
 
-      const tampilkanDetailProduk = (nama, deskripsi, dokter, harga, hargaAsli, rating, jadwal) => {
-        document.getElementById('modal-nama-layanan').innerText = nama;
-        document.getElementById('modal-deskripsi').innerText = deskripsi;
-        document.getElementById('modal-dokter').innerText = dokter;
-        document.getElementById('modal-jadwal').innerText = jadwal;
-        document.getElementById('modal-harga').innerHTML = hargaAsli
-          ? `<span class="text-muted text-decoration-line-through me-2">${hargaAsli}</span><span class="text-success fw-bold">${harga}</span>`
-          : `<span class="text-success fw-bold">${harga}</span>`;
-        const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : '');
-        document.getElementById('modal-rating').innerHTML = stars;
-      };
+      const tampilkanDetailProduk = (nama, deskripsi, dokter, harga, hargaAsli, rating, jadwal) => { // Fungsi untuk menampilkan detail produk ke modal
+  document.getElementById('modal-nama-layanan').innerText = nama; // Tampilkan nama layanan di modal
+  document.getElementById('modal-deskripsi').innerText = deskripsi; // Tampilkan deskripsi di modal
+  document.getElementById('modal-dokter').innerText = dokter; // Tampilkan nama dokter di modal
+  document.getElementById('modal-jadwal').innerText = jadwal; // Tampilkan jadwal layanan di modal
+  document.getElementById('modal-harga').innerHTML = hargaAsli // Cek apakah ada harga asli (harga diskon)
+    ? `<span class="text-muted text-decoration-line-through me-2">${hargaAsli}</span><span class="text-success fw-bold">${harga}</span>` // Jika ada harga asli, tampilkan harga coret + harga baru
+    : `<span class="text-success fw-bold">${harga}</span>`; // Jika tidak ada harga asli, tampilkan harga biasa
+  const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : ''); // Buat string bintang berdasarkan rating
+  document.getElementById('modal-rating').innerHTML = stars; // Tampilkan rating bintang di modal
+};
 
-      function redirectToForm() {
-        window.location.href = 'pesan.html';
+function redirectToForm() { // Fungsi untuk redirect ke halaman pesan.html
+  window.location.href = 'pesan.html'; // Pindah ke halaman form pemesanan
+}
+
+
+     generateProduk(produkSalonKucing, 'produk-salon-kucing-container'); // Panggil fungsi generateProduk pertama kali untuk menampilkan semua produk
+
+document.getElementById('kategoriFilter').addEventListener('change', (e) => { // Tambahkan event listener ketika dropdown kategori berubah
+  const kategori = e.target.value; // Ambil nilai kategori yang dipilih
+  if (kategori === 'semua') { // Jika pilih 'semua'
+    generateProduk(produkSalonKucing, 'produk-salon-kucing-container'); // Tampilkan semua produk
+  } else { // Jika kategori tertentu
+    const filtered = produkSalonKucing.filter((p) => p.kategori === kategori); // Filter produk berdasarkan kategori
+    generateProduk(filtered, 'produk-salon-kucing-container'); // Tampilkan produk yang sudah difilter
+  }
+});
+
+
+     if ('serviceWorker' in navigator) { // Cek apakah browser mendukung Service Worker
+  navigator.serviceWorker // Akses objek Service Worker di navigator
+    .register('sw.js') // Daftarkan file sw.js sebagai Service Worker
+    .then((reg) => console.log('Service Worker terdaftar:', reg.scope)) // Jika berhasil, tampilkan pesan sukses + scope
+    .catch((err) => console.log('Service Worker gagal:', err)); // Jika gagal, tampilkan pesan error
+}
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); // Cegah prompt default
+  deferredPrompt = e; // Simpan event untuk dipakai nanti
+
+  // Tampilkan tombol "Add to Home Screen"
+  const btn = document.createElement('button');
+  btn.innerText = '➕ Add to Home Screen';
+  btn.className = 'btn btn-warning position-fixed bottom-0 end-0 m-4';
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', () => {
+    btn.remove();
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        console.log('User accepted install');
+      } else {
+        console.log('User dismissed install');
       }
+    });
+  });
+});
 
-      generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
-
-      document.getElementById('kategoriFilter').addEventListener('change', (e) => {
-        const kategori = e.target.value;
-        if (kategori === 'semua') {
-          generateProduk(produkSalonKucing, 'produk-salon-kucing-container');
-        } else {
-          const filtered = produkSalonKucing.filter((p) => p.kategori === kategori);
-          generateProduk(filtered, 'produk-salon-kucing-container');
-        }
-      });
-
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('sw.js')
-          .then((reg) => console.log('Service Worker terdaftar:', reg.scope))
-          .catch((err) => console.log('Service Worker gagal:', err));
-      }
-    </script>
+</script>
 
    
    
